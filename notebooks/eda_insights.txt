@@ -1,0 +1,27 @@
+EDA Insights (Step 1: Supply Chain Price Prediction)
+- Dataset: 8,399 rows, 21 columns
+- Target: Unit Price
+  - Mean $90.76, median $77.54, skewed right, max $208
+  - Outliers: ~1% items >$200 (Technology products)
+- Features:
+  - Order Quantity: Mean 25.57, range 1-50, weak correlation (0.1) with Unit Price
+  - Shipping Cost: Mean $12.84, max $68, moderate correlation (0.4) with Unit Price
+  - Seasonality: 15-20% higher Unit Price in Nov-Dec (time-series, IsHoliday=1)
+  - Product Category: Technology median ~$150 (boxplot)
+  - Discount: Mean 5%, weak correlation (-0.05) with Unit Price
+  - Product Base Margin: 63 missing (0.75%), median 0.52
+- Preprocessing Needs:
+  - Impute Product Base Margin with median (0.52)
+  - One-hot encode Product Category, Ship Mode, Order Priority
+  - Cap Unit Price outliers (>$240)
+  - Drop Row ID, Customer Name
+- Business Insights:
+  - Premium pricing for Technology products
+  - Holiday season price spikes (Nov-Dec)
+  - Shipping costs reflect product value
+
+
+Model Performance (Step 2):
+- Tuned Random Forest: RMSE $26.29, R² 0.85
+- Top Features: [Add top features from feature_importance.png]
+- Preprocessing: Imputed 63 missing values, capped Unit Price at $214.76, binned Discount for interaction term

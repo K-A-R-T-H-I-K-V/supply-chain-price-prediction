@@ -1,0 +1,18 @@
+services:
+  hardhat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sepolia-hardhat
+    volumes:
+      - ./blockchain:/app
+    env_file:
+      - ./blockchain/.env
+    command: >
+      sh -c "npm install && npx hardhat run scripts/deploy.js --network sepolia"
+    networks:
+      - sepolia-network
+
+networks:
+  sepolia-network:
+    driver: bridge

@@ -1,0 +1,478 @@
+[
+  {
+    "timestamp": "2026-05-27T11:28:17.204110Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T11:29:03.633882Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T11:57:20.305633Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T11:57:47.917303Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.48,
+      "product_category": "Office Supplies",
+      "month": 12,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 46.14
+  },
+  {
+    "timestamp": "2026-05-27T12:27:11.092830Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T12:27:18.733043Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "First Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T12:39:34.489096Z",
+    "request": {
+      "order_quantity": 1,
+      "discount": 0.05,
+      "shipping_cost": 10.0,
+      "product_base_margin": 0.4,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Standard Class",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 15.93
+  },
+  {
+    "timestamp": "2026-05-27T16:58:23.405350Z",
+    "request": {
+      "order_quantity": 20,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 102.56
+  },
+  {
+    "timestamp": "2026-05-28T05:11:24.986882Z",
+    "request": {
+      "order_quantity": 12,
+      "discount": 0.05,
+      "shipping_cost": 35.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 1,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 113.89
+  },
+  {
+    "timestamp": "2026-05-28T11:09:09.763541Z",
+    "request": {
+      "order_quantity": 12,
+      "discount": 0.05,
+      "shipping_cost": 35.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 109.55
+  },
+  {
+    "timestamp": "2026-05-28T11:27:56.182127Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.6,
+      "product_category": "Technology",
+      "month": 4,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 121.82
+  },
+  {
+    "timestamp": "2026-05-28T11:42:06.942333Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 35.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 8,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 113.7
+  },
+  {
+    "timestamp": "2026-05-28T11:42:52.179117Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 45.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 7,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 6.17
+  },
+  {
+    "timestamp": "2026-05-28T11:52:05.296629Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 4,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 95.49
+  },
+  {
+    "timestamp": "2026-05-28T12:25:23.886302Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 103.01
+  },
+  {
+    "timestamp": "2026-05-28T12:28:07.546132Z",
+    "request": {
+      "order_quantity": 20,
+      "discount": 0.04,
+      "shipping_cost": 35.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 116.07
+  },
+  {
+    "timestamp": "2026-05-28T12:38:39.952858Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.62
+  },
+  {
+    "timestamp": "2026-05-29T08:37:07.268123Z",
+    "request": {
+      "order_quantity": 13,
+      "discount": 0.06,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 102.75
+  },
+  {
+    "timestamp": "2026-05-29T08:46:29.917141Z",
+    "request": {
+      "order_quantity": 13,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.32
+  },
+  {
+    "timestamp": "2026-05-29T09:53:18.960307Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.62
+  },
+  {
+    "timestamp": "2026-05-29T10:02:09.090199Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.62
+  },
+  {
+    "timestamp": "2026-05-29T10:43:07.496614Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 6,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 105.9
+  },
+  {
+    "timestamp": "2026-05-29T12:17:05.513792Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.62
+  },
+  {
+    "timestamp": "2026-05-29T12:17:08.287834Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.62
+  },
+  {
+    "timestamp": "2026-05-31T06:01:29.772852Z",
+    "request": {
+      "order_quantity": 14,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 1,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 103.63
+  },
+  {
+    "timestamp": "2026-06-03T15:36:01.035678Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.054,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 1,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 103.94
+  },
+  {
+    "timestamp": "2026-06-04T05:48:56.062876Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 1,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 104.21
+  },
+  {
+    "timestamp": "2026-06-04T05:51:19.039689Z",
+    "request": {
+      "order_quantity": 16,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.5,
+      "product_category": "Office Supplies",
+      "month": 5,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 104.87
+  },
+  {
+    "timestamp": "2026-06-04T07:18:42.163992Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.48,
+      "product_category": "Office Supplies",
+      "month": 8,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.71
+  },
+  {
+    "timestamp": "2026-06-04T18:24:15.524872Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.48,
+      "product_category": "Office Supplies",
+      "month": 8,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.71
+  },
+  {
+    "timestamp": "2026-06-04T18:29:54.460664Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.05,
+      "shipping_cost": 40.0,
+      "product_base_margin": 0.48,
+      "product_category": "Office Supplies",
+      "month": 8,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 101.71
+  },
+  {
+    "timestamp": "2026-06-04T19:09:36.997822Z",
+    "request": {
+      "order_quantity": 10,
+      "discount": 0.05,
+      "shipping_cost": 12.5,
+      "product_base_margin": 0.5,
+      "product_category": "office",
+      "month": 6,
+      "ship_mode": "Regular Air",
+      "order_priority": "Medium"
+    },
+    "predicted_unit_price": 48.63
+  },
+  {
+    "timestamp": "2026-06-04T19:22:01.649525Z",
+    "request": {
+      "order_quantity": 15,
+      "discount": 0.08,
+      "shipping_cost": 18.75,
+      "product_base_margin": 0.45,
+      "product_category": "technology",
+      "month": 6,
+      "ship_mode": "Ship",
+      "order_priority": "High"
+    },
+    "predicted_unit_price": 45.1
+  },
+  {
+    "timestamp": "2026-06-04T19:27:02.570545Z",
+    "request": {
+      "order_quantity": 25,
+      "discount": 0.12,
+      "shipping_cost": 22.5,
+      "product_base_margin": 0.55,
+      "product_category": "furniture",
+      "month": 6,
+      "ship_mode": "First Class",
+      "order_priority": "High"
+    },
+    "predicted_unit_price": 99.97
+  }
+]

@@ -1,0 +1,13 @@
+fastapi>=0.136,<0.140
+uvicorn[standard]>=0.46,<1.0
+pydantic>=2.5,<3
+numpy>=2.3,<2.4
+pandas>=2.3,<2.4
+scikit-learn>=1.7,<1.8
+xgboost>=3.0,<3.1
+joblib>=1.5,<2
+requests>=2.32,<3
+python-dotenv>=1.0,<2
+supabase>=1.0,<2
+groq>=0.4,<1
+yfinance>=0.2.29

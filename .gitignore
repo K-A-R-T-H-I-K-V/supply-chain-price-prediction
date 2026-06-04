@@ -1,4 +1,5 @@
 /ml_workspace/venv
 /ml_workspace/data
 /sepolia_workspace/blockchain/node_modules
-/sepolia_workspace/blockchain/.env
+/sepolia_workspace/blockchain/.env*.pkl
+.env

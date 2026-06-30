@@ -40,7 +40,7 @@ export const DashboardWrapper: React.FC<React.PropsWithChildren<Record<string, u
         )}
       </AnimatePresence>
 
-      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 sm:px-6 lg:px-8 xl:grid-cols-[280px_1fr] min-h-[calc(100vh-88px)]">
+      <div className="mx-auto grid max-w-[1600px] grid-cols-1 gap-6 px-4 py-8 sm:px-6 lg:px-8 xl:grid-cols-[260px_1fr] min-h-[calc(100vh-88px)]">
         <motion.div
           className="hidden xl:block"
           initial={{ opacity: 0, x: -20 }}

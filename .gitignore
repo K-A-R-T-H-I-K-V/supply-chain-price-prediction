@@ -3,3 +3,12 @@
 /sepolia_workspace/blockchain/node_modules
 /sepolia_workspace/blockchain/.env*.pkl
 .env
+
+# ML model artifacts (too large for GitHub — train locally or use Git LFS)
+backend/ml/*.pkl
+*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo

@@ -117,6 +117,10 @@ class ChatRequest(BaseModel):
     message: str
     context: Optional[str] = None
 
+class OnboardingRequest(BaseModel):
+    step: str
+    knows_supply_chain: Optional[bool] = None
+
 
 # ==========================================
 # HELPER FUNCTIONS
@@ -432,6 +436,24 @@ async def chat(req: ChatRequest):
         "success": True,
         "reply": make_chat_response(req.message),
     }
+
+@app.post("/api/onboarding")
+async def onboarding(req: OnboardingRequest):
+    try:
+        from services.onboarding_chat import generate_onboarding_explanation, get_invite_message
+    except ImportError:
+        raise HTTPException(status_code=503, detail="Onboarding service unavailable")
+
+    if req.step == "explain":
+        if req.knows_supply_chain is None:
+            raise HTTPException(status_code=400, detail="knows_supply_chain is required for explain step")
+        reply = generate_onboarding_explanation(req.knows_supply_chain)
+        return {"success": True, "reply": reply, "step": "invite"}
+
+    if req.step == "invite":
+        return {"success": True, "reply": get_invite_message(), "step": "ready"}
+
+    raise HTTPException(status_code=400, detail="Invalid step. Use 'explain' or 'invite'.")
 
 @app.post("/api/expert-suggestions")
 async def expert_suggestions(req: ExpertSuggestionRequest):

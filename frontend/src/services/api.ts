@@ -10,6 +10,8 @@ import type {
   PredictionHistoryItem,
   ChatRequest,
   ChatResponse,
+  OnboardingRequest,
+  OnboardingResponse,
 } from '../types';
 
 const api = axios.create({
@@ -58,6 +60,11 @@ export const deleteHistory = async (id?: string) => {
 
 export const postChat = async (payload: ChatRequest): Promise<ChatResponse> => {
   const res = await api.post('/api/chat', payload);
+  return res.data;
+};
+
+export const postOnboarding = async (payload: OnboardingRequest): Promise<OnboardingResponse> => {
+  const res = await api.post('/api/onboarding', payload);
   return res.data;
 };
 

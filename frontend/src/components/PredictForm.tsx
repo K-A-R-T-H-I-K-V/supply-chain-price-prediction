@@ -1,10 +1,13 @@
 "use client";
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { predict, getExpertSuggestions } from '@/services/api';
 import type { PredictRequest } from '@/types';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import OnboardingChat from '@/components/OnboardingChat';
+
+const ONBOARDING_KEY = 'scpp_onboarding_complete';
 
 // Skeleton component for prediction result
 const PredictionSkeleton = () => (
@@ -166,6 +169,8 @@ type PredictFormState = {
 };
 
 export const PredictForm: React.FC = () => {
+  const [onboardingComplete, setOnboardingComplete] = useState(false);
+  const [introKey, setIntroKey] = useState(0);
   const [form, setForm] = useState<PredictFormState>({
     order_quantity: '',
     discount: '',
@@ -184,6 +189,22 @@ export const PredictForm: React.FC = () => {
   const [expertResult, setExpertResult] = useState<{ message: string; suggestions: string[]; summary?: string } | null>(null);
   const [expertError, setExpertError] = useState<string | null>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && localStorage.getItem(ONBOARDING_KEY) === 'true') {
+      setOnboardingComplete(true);
+    }
+  }, []);
+
+  const handleOnboardingComplete = useCallback(() => {
+    setOnboardingComplete(true);
+  }, []);
+
+  const replayIntro = useCallback(() => {
+    localStorage.removeItem(ONBOARDING_KEY);
+    setOnboardingComplete(false);
+    setIntroKey((k) => k + 1);
+  }, []);
 
   const handleChange = <K extends keyof PredictFormState>(key: K, value: PredictFormState[K]) => {
     setForm((s) => ({ ...s, [key]: value }));
@@ -209,9 +230,22 @@ export const PredictForm: React.FC = () => {
 
   useEffect(() => {
     const resetHandler = () => resetForm();
+    const restartHandler = () => {
+      localStorage.removeItem(ONBOARDING_KEY);
+      setOnboardingComplete(false);
+      setIntroKey((k) => k + 1);
+      resetForm();
+    };
+    const replayHandler = () => replayIntro();
     window.addEventListener('reset-prediction-form', resetHandler);
-    return () => window.removeEventListener('reset-prediction-form', resetHandler);
-  }, []);
+    window.addEventListener('restart-onboarding', restartHandler);
+    window.addEventListener('replay-intro', replayHandler);
+    return () => {
+      window.removeEventListener('reset-prediction-form', resetHandler);
+      window.removeEventListener('restart-onboarding', restartHandler);
+      window.removeEventListener('replay-intro', replayHandler);
+    };
+  }, [replayIntro]);
 
   const buildPayload = (): PredictRequest => ({
     order_quantity: Number(form.order_quantity),
@@ -357,7 +391,7 @@ export const PredictForm: React.FC = () => {
   }, [expertResult]);
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_420px] h-full">
+    <div id="predict" className="grid gap-6 lg:grid-cols-[1fr_360px] h-full">
       {/* LEFT PANEL: Control Center */}
       <motion.div
         className="w-full"
@@ -365,17 +399,31 @@ export const PredictForm: React.FC = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
       >
+        {!onboardingComplete ? (
+          <OnboardingChat key={introKey} onComplete={handleOnboardingComplete} />
+        ) : (
         <Card className="w-full rounded-2xl border border-slate-200/50 bg-white shadow-xl shadow-slate-200/30 backdrop-blur-sm p-0 overflow-hidden">
           {/* Header Section */}
           <div className="border-b border-slate-200/50 bg-gradient-to-r from-slate-50/80 to-indigo-50/80 backdrop-blur-sm px-8 py-8">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}>
-              <p className="text-xs uppercase tracking-widest font-bold text-indigo-600">Control Center</p>
-              <h2 className="mt-2 text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
-                Quick Predict
-              </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
-                Input your supply chain parameters and generate a price prediction. Expert suggestions appear in the right panel.
-              </p>
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs uppercase tracking-widest font-bold text-indigo-600">Control Center</p>
+                  <h2 className="mt-2 text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+                    Quick Predict
+                  </h2>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">
+                    Input your supply chain parameters and generate a price prediction. Expert suggestions appear in the right panel.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={replayIntro}
+                  className="shrink-0 rounded-full border border-indigo-200 bg-white px-4 py-2 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-50"
+                >
+                  See intro again
+                </button>
+              </div>
             </motion.div>
           </div>
 
@@ -652,6 +700,7 @@ export const PredictForm: React.FC = () => {
             )}
           </AnimatePresence>
         </Card>
+        )}
       </motion.div>
 
       {/* RIGHT PANEL: Expressive Zone with Glassmorphism */}
@@ -691,7 +740,20 @@ export const PredictForm: React.FC = () => {
             )}
           </AnimatePresence>
 
-          {!expertOpen && prediction === null && !expertLoading && (
+          {!onboardingComplete && (
+            <motion.div
+              className="rounded-2xl border border-indigo-200/50 bg-gradient-to-br from-indigo-50/80 to-violet-50/50 backdrop-blur-sm p-6 text-sm text-slate-700"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <p className="font-semibold text-slate-900">What happens next?</p>
+              <p className="mt-2 leading-6">
+                Complete the short intro on the left, then fill in your order details to get a price forecast and AI expert suggestions here.
+              </p>
+            </motion.div>
+          )}
+
+          {onboardingComplete && !expertOpen && prediction === null && !expertLoading && (
             <motion.div
               className="rounded-2xl border border-slate-200/50 bg-gradient-to-br from-slate-50/80 to-slate-50/50 backdrop-blur-sm p-4 text-sm text-slate-700"
               initial={{ opacity: 0 }}

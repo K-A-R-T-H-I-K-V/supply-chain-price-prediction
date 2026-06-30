@@ -56,3 +56,14 @@ export interface ChatResponse {
   reply: string;
 }
 
+export interface OnboardingRequest {
+  step: 'explain' | 'invite';
+  knows_supply_chain?: boolean;
+}
+
+export interface OnboardingResponse {
+  success: boolean;
+  reply: string;
+  step: string;
+}
+

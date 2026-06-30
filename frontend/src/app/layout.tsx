@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import DashboardWrapper from '@/components/layout/DashboardWrapper';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -10,9 +9,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full">
-        <DashboardWrapper>{children}</DashboardWrapper>
-      </body>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }

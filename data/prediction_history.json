@@ -474,5 +474,19 @@
       "order_priority": "High"
     },
     "predicted_unit_price": 99.97
+  },
+  {
+    "timestamp": "2026-06-30T17:54:35.068471Z",
+    "request": {
+      "order_quantity": 12,
+      "discount": 0.05,
+      "shipping_cost": 35.0,
+      "product_base_margin": 0.5,
+      "product_category": "Technology",
+      "month": 8,
+      "ship_mode": "Delivery Truck",
+      "order_priority": "High"
+    },
+    "predicted_unit_price": 87.37
   }
 ]

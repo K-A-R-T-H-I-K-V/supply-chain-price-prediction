@@ -1,9 +1,9 @@
 "use client";
+
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { getHistory } from '@/services/api';
 import supabase from '@/lib/supabaseClient';
-import Auth from '@/components/Auth';
 import api from '@/services/api';
 import type { PredictionHistoryItem } from '@/types';
 
@@ -12,17 +12,10 @@ type Props = {
   className?: string;
 };
 
-const nav = [
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'predict', label: 'Predict' },
-  { id: 'weather', label: 'Weather' },
-  { id: 'insights', label: 'Insights' },
-  { id: 'history', label: 'History' },
-];
-
 export const Sidebar: React.FC<Props> = ({ onClose, className }) => {
-  const wrapperClass = className ?? 'hidden xl:block w-72 shrink-0';
+  const wrapperClass = className ?? 'hidden xl:flex xl:w-[260px] shrink-0';
   const [history, setHistory] = useState<PredictionHistoryItem[]>([]);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   const fetchHistory = async () => {
     try {
@@ -41,29 +34,38 @@ export const Sidebar: React.FC<Props> = ({ onClose, className }) => {
   }, []);
 
   useEffect(() => {
-    // If user is signed in, attach token to API client for backend requests
     const setAuthHeader = async () => {
       try {
         const { data } = await supabase.auth.getSession();
         const token = data?.session?.access_token;
+        setUserEmail(data?.session?.user?.email ?? null);
         if (token) {
           api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
-      } catch (e) {
+      } catch {
         // ignore
       }
     };
     setAuthHeader();
     const { data } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.access_token) api.defaults.headers.common['Authorization'] = `Bearer ${session.access_token}`;
-      else delete api.defaults.headers.common['Authorization'];
+      setUserEmail(session?.user?.email ?? null);
+      if (session?.access_token) {
+        api.defaults.headers.common['Authorization'] = `Bearer ${session.access_token}`;
+      } else {
+        delete api.defaults.headers.common['Authorization'];
+      }
     });
-    const subscription = (data as any)?.subscription;
+    const subscription = (data as { subscription?: { unsubscribe?: () => void } })?.subscription;
     return () => subscription?.unsubscribe?.();
   }, []);
 
   const handleNewPrediction = () => {
     window.dispatchEvent(new Event('reset-prediction-form'));
+    document.getElementById('predict')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleReplayIntro = () => {
+    window.dispatchEvent(new Event('replay-intro'));
     document.getElementById('predict')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -74,86 +76,101 @@ export const Sidebar: React.FC<Props> = ({ onClose, className }) => {
           form: item.request,
           predicted_price: item.predicted_unit_price,
         },
-      })
+      }),
     );
     document.getElementById('predict')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <aside className={wrapperClass}>
-      <div className="flex h-full flex-col gap-6 rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="flex items-start justify-between">
-          <div>
-            <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-3xl bg-indigo-600 text-2xl text-white shadow-lg">
-              🚚
+      <div className="flex h-full max-h-[calc(100vh-120px)] w-full flex-col rounded-2xl border border-slate-200/80 bg-[#f9f9f9]">
+        {/* Top bar */}
+        <div className="flex items-center justify-between px-3 py-3">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm text-white">
+              📦
             </div>
-            <h2 className="text-2xl font-semibold text-slate-900">Supply Chain</h2>
-            <p className="mt-2 text-sm text-slate-500">Price prediction dashboard</p>
+            <span className="text-sm font-semibold text-slate-800">SC Predictor</span>
           </div>
           {onClose && (
-            <button onClick={onClose} aria-label="Close sidebar" className="ml-4 rounded-md bg-slate-50 px-2 py-1 text-sm text-slate-600">
+            <button
+              onClick={onClose}
+              aria-label="Close sidebar"
+              className="rounded-md px-2 py-1 text-slate-500 hover:bg-slate-200/60"
+            >
               ✕
             </button>
           )}
         </div>
 
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-2">
-            <button
+        {/* New chat button */}
+        <div className="space-y-1 px-3 pb-2">
+          <button
             type="button"
             onClick={handleNewPrediction}
-            className="flex items-center justify-center gap-2 rounded-3xl bg-indigo-600 px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-700"
+            className="flex w-full items-center gap-2 rounded-xl border border-slate-200/80 bg-white px-3 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
           >
-            <span className="text-lg">+</span>
+            <span className="text-base leading-none">+</span>
             New prediction
-            </button>
-            <div>
-              <Auth />
-            </div>
-          </div>
-
-          <Link
-            href="#history"
-            className="flex items-center gap-3 rounded-3xl border border-transparent bg-slate-50 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-indigo-50"
+          </button>
+          <button
+            type="button"
+            onClick={handleReplayIntro}
+            className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-200/50 hover:text-slate-700"
           >
-            History
-          </Link>
+            ↺ See intro again
+          </button>
         </div>
 
-        <div id="history" className="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-          <p className="font-semibold text-slate-900">Prediction history</p>
-          <p className="mt-3 text-sm text-slate-600">
-            Past forecasts are logged here automatically. Click New prediction to reset the form and run another scenario.
+        {/* History list */}
+        <div className="flex-1 overflow-y-auto px-2 py-1">
+          <p className="px-2 py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+            Recent
           </p>
-
           {history.length === 0 ? (
-            <div className="mt-4 rounded-3xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 shadow-sm">
-              No history yet. Run a prediction and expert suggestions will be stored here.
-            </div>
+            <p className="px-2 py-3 text-xs leading-5 text-slate-500">
+              No predictions yet. Start a new chat to forecast a price.
+            </p>
           ) : (
-            <ul className="mt-4 space-y-3">
-              {history.slice(0, 4).map((item, index) => (
-                <li
-                  key={`${item.timestamp}-${index}`}
-                  onClick={() => handleHistoryClick(item)}
-                  className="cursor-pointer rounded-3xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50 hover:shadow-md"
-                >
-                  <p className="font-semibold text-slate-900">${item.predicted_unit_price.toFixed(2)}</p>
-                  <p className="mt-1 text-xs uppercase tracking-[0.24em] text-slate-500">
-                    {new Date(item.timestamp).toLocaleString()}
-                  </p>
-                  <p className="mt-3 text-sm text-slate-600">
-                    {item.request.product_category}, {item.request.order_priority} priority
-                  </p>
+            <ul className="space-y-0.5">
+              {history.slice(0, 12).map((item, index) => (
+                <li key={`${item.timestamp}-${index}`}>
+                  <button
+                    type="button"
+                    onClick={() => handleHistoryClick(item)}
+                    className="group flex w-full flex-col rounded-lg px-3 py-2.5 text-left transition hover:bg-slate-200/50"
+                  >
+                    <span className="truncate text-sm text-slate-700 group-hover:text-slate-900">
+                      ${item.predicted_unit_price.toFixed(2)} · {item.request.product_category}
+                    </span>
+                    <span className="mt-0.5 truncate text-[11px] text-slate-400">
+                      {item.request.order_priority} priority ·{' '}
+                      {new Date(item.timestamp).toLocaleDateString()}
+                    </span>
+                  </button>
                 </li>
               ))}
             </ul>
           )}
         </div>
 
-        <div className="mt-auto rounded-[1.25rem] border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
-          <p className="font-semibold text-slate-900">Mini Storage</p>
-          <p className="mt-1 text-sm">Click any history item to restore the prediction and form data.</p>
+        {/* Bottom user area */}
+        <div className="border-t border-slate-200/80 p-3">
+          {userEmail ? (
+            <div className="flex items-center gap-2 rounded-lg px-2 py-2">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-indigo-700">
+                {userEmail[0]?.toUpperCase()}
+              </div>
+              <span className="truncate text-xs text-slate-600">{userEmail}</span>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="flex w-full items-center justify-center rounded-xl bg-indigo-600 px-3 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-700"
+            >
+              Log in
+            </Link>
+          )}
         </div>
       </div>
     </aside>

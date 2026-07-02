@@ -8,7 +8,7 @@ export const DashboardWrapper: React.FC<React.PropsWithChildren<Record<string, u
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/30 text-slate-900 overflow-hidden">
+    <div className="mesh-background relative min-h-screen text-slate-900 overflow-hidden">
       <Navbar onOpenSidebar={() => setOpen(true)} />
 
       {/* Mobile sidebar overlay */}

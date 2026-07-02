@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f9ff;
+  --foreground: #0f1117;
 }
 
 @theme inline {
@@ -12,17 +12,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scrollbar Styling */
@@ -58,14 +53,41 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom Animations */
+/* ── Animated gradient mesh ── */
+@keyframes mesh-drift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mesh-background {
+  background: linear-gradient(
+    135deg,
+    #eef2ff 0%,
+    #f5f3ff 20%,
+    #ede9fe 40%,
+    #e0e7ff 60%,
+    #f0f9ff 80%,
+    #f8faff 100%
+  );
+  background-size: 400% 400%;
+  animation: mesh-drift 18s ease infinite;
+}
+
+/* ── Shimmer skeleton ── */
 @keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+
+/* ── Particle fade-in ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease both;
 }
 
 /* Form input focus effect */

@@ -10,7 +10,7 @@ type Props = {
 export const Navbar: React.FC<Props> = ({ onOpenSidebar }) => {
   return (
     <motion.div
-      className="sticky top-0 z-50 w-full border-b border-slate-200/50 bg-white/80 backdrop-blur-xl py-4 px-4 shadow-sm"
+      className="sticky top-0 z-50 w-full border-b border-white/50 bg-white/60 backdrop-blur-xl py-4 px-4 shadow-sm shadow-slate-200/30"
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}

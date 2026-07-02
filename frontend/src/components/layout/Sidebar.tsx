@@ -60,16 +60,17 @@ export const Sidebar: React.FC<Props> = ({ onClose, className }) => {
   }, []);
 
   const handleNewPrediction = () => {
+    window.dispatchEvent(new Event('open-prediction-module'));
     window.dispatchEvent(new Event('reset-prediction-form'));
     document.getElementById('predict')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const handleReplayIntro = () => {
-    window.dispatchEvent(new Event('replay-intro'));
-    document.getElementById('predict')?.scrollIntoView({ behavior: 'smooth' });
+    window.dispatchEvent(new Event('go-to-landing'));
   };
 
   const handleHistoryClick = (item: PredictionHistoryItem) => {
+    window.dispatchEvent(new Event('open-prediction-module'));
     window.dispatchEvent(
       new CustomEvent('load-prediction', {
         detail: {
@@ -83,7 +84,7 @@ export const Sidebar: React.FC<Props> = ({ onClose, className }) => {
 
   return (
     <aside className={wrapperClass}>
-      <div className="flex h-full max-h-[calc(100vh-120px)] w-full flex-col rounded-2xl border border-slate-200/80 bg-[#f9f9f9]">
+      <div className="flex h-full max-h-[calc(100vh-120px)] w-full flex-col rounded-2xl border border-white/60 bg-white/60 shadow-xl shadow-slate-200/30 backdrop-blur-md">
         {/* Top bar */}
         <div className="flex items-center justify-between px-3 py-3">
           <div className="flex items-center gap-2">

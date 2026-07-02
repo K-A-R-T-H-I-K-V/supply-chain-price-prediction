@@ -4,8 +4,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { postOnboarding } from '@/services/api';
 
-const ONBOARDING_KEY = 'scpp_onboarding_complete';
-
 type ChatAction = {
   label: string;
   value: string;
@@ -114,12 +112,6 @@ export const OnboardingChat: React.FC<Props> = ({ onComplete }) => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, loading]);
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && localStorage.getItem(ONBOARDING_KEY) === 'true') {
-      onCompleteRef.current();
-    }
-  }, []);
-
   const handleKnowledgeAnswer = async (messageId: string, knows: boolean) => {
     markAnswered(messageId);
     addUserMessage(knows ? 'Yes' : 'No');
@@ -141,7 +133,7 @@ export const OnboardingChat: React.FC<Props> = ({ onComplete }) => {
           ? 'Good to know! We focus on office supplies — a small set of essentials like printer paper, pens, and staplers. Fill in the form to get a price estimate, and we factor in live weather, news, and fuel costs so the tips match real conditions.'
           : 'Supply chain is simply getting products from a supplier to you on time. We handle office supplies only — about 2–3 essentials like paper, pens, and staplers. The form gives you a price estimate, informed by live weather, news, and shipping costs.',
       );
-      addBotMessage('Ready to try it? Fill in the prediction form with your order details.', [
+      addBotMessage('Ready to try it? Open the Price Prediction module from the card below.', [
         { label: "Yes, let's go!", value: 'start-form', variant: 'primary' },
       ]);
       setPhase('invite');
@@ -154,7 +146,6 @@ export const OnboardingChat: React.FC<Props> = ({ onComplete }) => {
     markAnswered(messageId);
     addUserMessage("Yes, let's go!");
     setPhase('done');
-    localStorage.setItem(ONBOARDING_KEY, 'true');
     onComplete();
   };
 
@@ -169,10 +160,17 @@ export const OnboardingChat: React.FC<Props> = ({ onComplete }) => {
   };
 
   return (
-    <div className="flex h-full min-h-[520px] max-h-[calc(100vh-180px)] flex-col rounded-2xl border border-slate-200/50 bg-white shadow-xl shadow-slate-200/30 overflow-hidden">
-      <div className="shrink-0 border-b border-slate-200/50 px-6 py-4">
-        <h2 className="text-lg font-semibold text-slate-900">Quick intro</h2>
-        <p className="text-sm text-slate-500">A short overview before you predict</p>
+    <div className="flex h-full min-h-[380px] max-h-[480px] flex-col overflow-hidden rounded-2xl">
+      <div className="shrink-0 border-b border-white/50 bg-white/60 px-5 py-3.5 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 text-sm text-white shadow-sm shadow-indigo-500/30">
+            💬
+          </span>
+          <div>
+            <h2 className="text-sm font-bold text-slate-900">Quick intro</h2>
+            <p className="text-[11px] text-slate-400">A short overview before you predict</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6">

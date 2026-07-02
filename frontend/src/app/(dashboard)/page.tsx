@@ -1,6 +1,6 @@
 "use client";
 import { motion } from 'framer-motion';
-import PredictForm from '@/components/PredictForm';
+import PredictionWorkspace from '@/components/PredictionWorkspace';
 
 export default function DashboardPage() {
   return (
@@ -11,9 +11,8 @@ export default function DashboardPage() {
       transition={{ duration: 0.4 }}
     >
       <div className="w-full max-w-[1600px]">
-        <PredictForm />
+        <PredictionWorkspace />
       </div>
     </motion.main>
   );
 }
-

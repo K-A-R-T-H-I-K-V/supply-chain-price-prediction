@@ -15,7 +15,7 @@ import type {
 } from '../types';
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5001',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8001',
   headers: { 'Content-Type': 'application/json' },
   timeout: 10000,
 });

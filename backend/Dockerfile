@@ -1,5 +1,6 @@
 # Backend API Server
-# Render: Root Directory empty (repo root), Dockerfile Path = backend/Dockerfile
+# Render settings: Root Directory = (empty), Dockerfile Path = backend/Dockerfile
+# If Root Directory is set to "backend", repo-root paths like data/ won't be in the build context.
 #
 # model.pkl is gitignored — provide it one of these ways:
 #   A) Git LFS (recommended): git lfs track backend/ml/*.pkl && git push
@@ -19,11 +20,12 @@ RUN apt-get update && apt-get install -y \
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# App code (includes ml/train_model.py; model.pkl may come from LFS or local disk)
+# App code (includes ml/model.pkl via Git LFS and ml/train_model.py)
 COPY backend/ .
 
-# Training data for optional build-time model generation
-COPY data/ /data/
+# Training data only needed when TRAIN_MODEL_AT_BUILD=true (requires repo-root build context)
+ARG TRAIN_MODEL_AT_BUILD=false
+
 
 # Download pre-trained model from a GitHub release (or other HTTPS URL)
 ARG MODEL_DOWNLOAD_URL=""
@@ -48,7 +50,7 @@ RUN test -f ml/model.pkl && [ "$(wc -c < ml/model.pkl)" -gt 1000000 ] || ( \
     )
 
 ENV PYTHONUNBUFFERED=1
-ENV DATA_PATH=/data/superstoreSales.csv
+
 ENV MPLBACKEND=Agg
 
 EXPOSE 5000

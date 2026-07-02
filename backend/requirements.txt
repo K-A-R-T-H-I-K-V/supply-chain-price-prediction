@@ -11,3 +11,5 @@ python-dotenv>=1.0,<2
 supabase>=1.0,<2
 groq>=0.4,<1
 yfinance>=0.2.29
+matplotlib>=3.9,<4
+seaborn>=0.13,<1
